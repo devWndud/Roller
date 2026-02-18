@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Roller{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        #auth-guest, #auth-user { display: none; }
+    </style>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header class="header">
+        <div class="header-top">
+            <div class="header-left">
+                <div class="search-box">
+                    <i class="icon-search"></i>
+                    <input type="text" placeholder="원하시는 상품을 검색하세요" class="search-input">
+                </div>
+            </div>
+
+            <div class="header-center">
+                <a href="{{ url_for('home') }}" style="text-decoration: none; color: inherit;">
+                    <h1 class="logo">Roller</h1>
+                </a>
+            </div>
+
+            <div class="header-right" id="header-auth" data-logged-in="{{ 'true' if current_user else 'false' }}">
+                <div id="auth-guest">
+                    <a href="{{ url_for('login') }}" class="header-btn">로그인</a>
+                    <a href="{{ url_for('signup') }}" class="header-btn">회원가입</a>
+                    <button class="header-btn">
+                        <i class="icon-cart"></i> 장바구니
+                    </button>
+                </div>
+
+                <div id="auth-user">
+                    <a href="{{ url_for('mypage') }}" class="header-btn">마이페이지</a>
+                    <a href="#" id="logout-link" class="header-btn">로그아웃</a>
+                    <button class="header-btn">
+                        <i class="icon-cart"></i> 장바구니
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar">
+            <div class="nav-container">
+                {% for category in categories %}
+                <a href="{{ category.url }}" class="nav-item">{{ category.name }}</a>
+                {% endfor %}
+                <button class="nav-item community-btn">COMMUNITY</button>
+            </div>
+        </nav>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>고객센터</h4>
+                <p>전화: 010 3317 4844</p>
+                <p>Email: rollercoasterride@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h4>배송정보</h4>
+                <p>당일배송 가능</p>
+                <p>전국 배송 무료</p>
+            </div>
+            <div class="footer-section">
+                <h4>약관</h4>
+                <a href="#">이용약관</a>
+                <a href="#">개인정보처리방침</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Roller. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="notification" id="notification">
+        <p id="notificationText"></p>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    
+    <script>
+    
+    window.__FIREBASE_CONFIG__ = {
+      apiKey: "AIzaSyAZENm4oeY6dUzHGYhS046cU-j5efx2s50",
+      authDomain: "roller-a6e27.firebaseapp.com",
+      projectId: "roller-a6e27",
+      storageBucket: "roller-a6e27.firebasestorage.app",
+      messagingSenderId: "528576474860",
+      appId: "1:528576474860:web:4b578446ae7955005c7fc9"
+    };
+    </script>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+    <script>
+    
+    (function(){
+        try{
+            if(window.__FIREBASE_CONFIG__ && window.firebase && window.firebase.initializeApp){
+                initFirebase(window.__FIREBASE_CONFIG__);
+            } else {
+                
+                document.addEventListener('DOMContentLoaded', function(){
+                    if(window.__FIREBASE_CONFIG__ && window.firebase && window.firebase.initializeApp){
+                        initFirebase(window.__FIREBASE_CONFIG__);
+                    }
+                });
+            }
+        }catch(e){ console.error('Firebase auto-init failed', e); }
+    })();
+    </script>
+</body>
+</html>

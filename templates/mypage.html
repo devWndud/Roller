@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}마이페이지 - Roller{% endblock %}
+
+{% block content %}
+<main class="container mypage">
+  <section class="mypage-header">
+    <div class="avatar">
+      {% if user.picture %}
+      <img src="{{ user.picture }}" alt="avatar">
+      {% else %}
+      <div class="avatar-placeholder">{{ user.name[0] if user.name }}</div>
+      {% endif %}
+    </div>
+    <div class="user-info">
+      <h2>{{ user.name or '회원' }}</h2>
+      <p>{{ user.email }}</p>
+    </div>
+  </section>
+
+  <section class="mypage-content">
+    <h3>주문 내역</h3>
+    {% if orders %}
+      <ul class="orders-list">
+        {% for o in orders %}
+        <li>주문 #{{ o.id }} - {{ o.status }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>주문 내역이 없습니다.</p>
+    {% endif %}
+
+    <h3>계정 설정</h3>
+    <p>계정 정보 수정은 추후 제공됩니다.</p>
+  </section>
+</main>
+{% endblock %}

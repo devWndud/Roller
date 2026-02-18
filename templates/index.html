@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}Roller{% endblock %}
+
+{% block content %}
+
+    <section class="carousel-section">
+        <div class="carousel-container">
+            <button class="carousel-btn carousel-prev" onclick="previousSlide()">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+                    <path d="M18 6L8 15L18 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+
+            <div class="carousel-wrapper">
+                <div class="carousel-track" id="carouselTrack">
+                    <div class="carousel-slide active">
+                        <div class="slide-content">
+                            <div class="slide-image left-image">
+                                <img src="{{ url_for('static', filename='images/slide1.jpg') }}" alt="Model wearing denim jacket">
+                            </div>
+                            <div class="slide-description">
+                                <h3 class="desc-category">{{ featured_products[0].category }}</h3>
+                                <h2 class="desc-title">{{ featured_products[0].name }}</h2>
+                                <div class="desc-price">₩{{ "{:,}".format(featured_products[0].price) }}</div>
+                                <p class="desc-text">개쩌는 까만색 데님팬트츠입니다. 다리 개길어보이고 그냥 ㅈㄴ까리합니다</p>
+                                <button class="product-btn" onclick="viewProduct({{ featured_products[0].id }})">상세보기</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                        <div class="slide-content">
+                            <div class="slide-image left-image">
+                                <img src="{{ url_for('static', filename='images/slide2.jpg') }}" alt="Model in casual wear">
+                            </div>
+                            <div class="slide-description">
+                                <h3 class="desc-category">{{ featured_products[1].category }}</h3>
+                                <h2 class="desc-title">{{ featured_products[1].name }}</h2>
+                                <div class="desc-price">₩{{ "{:,}".format(featured_products[1].price) }}</div>
+                                <p class="desc-text">개레전드 무스탕입니다. 입으면 누구나 여심 마음 탕할 수 있습니다.</p>
+                                <button class="product-btn" onclick="viewProduct({{ featured_products[1].id }})">상세보기</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                        <div class="slide-content">
+                            <div class="slide-image left-image">
+                                <img src="{{ url_for('static', filename='images/slide3.jpg') }}" alt="Model in streetwear">
+                            </div>
+                            <div class="slide-description">
+                                <h3 class="desc-category">{{ featured_products[2].category }}</h3>
+                                <h2 class="desc-title">{{ featured_products[2].name }}</h2>
+                                <div class="desc-price">₩{{ "{:,}".format(featured_products[2].price) }}</div>
+                                <p class="desc-text">개까리한 베이지 데님 팬츠입니다. 레전드힙합입니다.</p>
+                                <button class="product-btn" onclick="viewProduct({{ featured_products[2].id }})">상세보기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="carousel-btn carousel-next" onclick="nextSlide()">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+                    <path d="M12 6L22 15L12 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="carousel-indicators">
+            <button class="indicator active" onclick="goToSlide(0)"></button>
+            <button class="indicator" onclick="goToSlide(1)"></button>
+            <button class="indicator" onclick="goToSlide(2)"></button>
+        </div>
+    </section>
+
+    <section class="featured-products">
+        <h2 class="section-title">추천 상품</h2>
+        <div class="products-grid">
+            {% for product in featured_products %}
+            <div class="product-card">
+                <div class="product-image" onclick="viewProduct({{ product.id }})">
+                    <img src="{{ url_for('static', filename=product.image_url) }}" alt="{{ product.name }}" style="cursor: pointer;">
+                    {% if product.badge %}
+                    <span class="product-badge">{{ product.badge }}</span>
+                    {% endif %}
+                </div>
+                <div class="product-info">
+                    <p class="product-category">{{ product.category }}</p>
+                    <h3 class="product-name" onclick="viewProduct({{ product.id }})" style="cursor: pointer;">{{ product.name }}</h3>
+                    <div class="product-price">₩{{ "{:,}".format(product.price) }}</div>
+                    <button class="product-btn" onclick="viewProduct({{ product.id }})">
+                        상세보기
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Cart Notification -->
+    <div class="notification" id="notification">
+        <p id="notificationText"></p>
+    </div>
+
+{% endblock %}
