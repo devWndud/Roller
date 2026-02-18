@@ -4,11 +4,11 @@
 
 {% block head %}
 <script>
-// Placeholder init for Kakao and Firebase config — replace keys with your project values
+
 if (window.Kakao && !Kakao.isInitialized()) {
     Kakao.init('YOUR_KAKAO_JS_KEY');
 }
-// Do NOT call initFirebase here; base.html will auto-init after auth.js loads
+
 window.__FIREBASE_CONFIG__ = window.__FIREBASE_CONFIG__ || null;
 </script>
 {% endblock %}

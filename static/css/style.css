@@ -110,6 +110,14 @@ body {
     font-weight: 600;
 }
 
+.mobile-menu-btn {
+    display: none;
+}
+
+.mobile-search-btn {
+    display: none;
+}
+
 .points-badge {
     background-color: var(--primary-color);
     color: var(--secondary-color);
@@ -172,6 +180,7 @@ body {
     align-items: center;
     gap: 20px;
     padding: 0 20px;
+    height: auto;
 }
 
 .carousel-wrapper {
@@ -194,24 +203,20 @@ body {
 .slide-content {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 40px;
     width: 100%;
     max-width: 1000px;
 }
 
 .slide-image {
-    flex: 1;
-    min-width: 0;
-}
-
-.slide-image {
-    flex: 1;
+    flex: 0 0 auto;
     min-width: 0;
     aspect-ratio: 2 / 3; /* recommended: 400x600 (w/h = 2:3) */
     /* responsive width: grows with viewport but stays within sensible bounds */
-    width: clamp(260px, 30vw, 420px); /* slightly smaller by default */
+    width: clamp(250px, 35vw, 450px);
     overflow: hidden;
     margin: 0 auto; /* center within slide */
+    height: auto;
 }
 
 .slide-image img {
@@ -230,9 +235,8 @@ body {
 }
 
 .slide-description {
-    width: clamp(260px, 28vw, 380px);
+    flex: 1;
     padding: 20px 24px;
-    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -622,40 +626,91 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
     .header-top {
-        flex-direction: column;
-        padding: 10px 15px;
+        flex-direction: row;
+        padding: 15px;
         gap: 10px;
+        justify-content: space-between;
+        align-items: center;
     }
 
-    .header-left,
-    .header-center,
-    .header-right {
-        width: 100%;
+    .header-left {
+        width: auto;
+        order: 1;
+        flex: 0;
     }
 
     .search-box {
-        width: 100%;
-        order: 3;
+        display: none;
     }
 
     .header-center {
-        order: 1;
-    }
-
-    .header-right {
+        width: auto;
         order: 2;
-        justify-content: space-around;
-        flex-wrap: wrap;
+        flex: 1;
+        text-align: center;
     }
 
     .logo {
         font-size: 18px;
         letter-spacing: 2px;
+        margin: 0;
+    }
+
+    .header-right {
+        width: auto;
+        order: 3;
+        justify-content: flex-end;
+        flex-wrap: nowrap;
+        gap: 0;
+        flex: 0;
+    }
+
+    #auth-guest,
+    #auth-user {
+        display: none !important;
+    }
+
+    .mobile-search-btn {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        color: var(--primary-color);
+    }
+
+    .mobile-search-btn svg {
+        width: 24px;
+        height: 24px;
+        color: var(--primary-color);
+    }
+
+    .mobile-menu-btn {
+        display: flex !important;
+        flex-direction: column;
+        gap: 4px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+    }
+
+    .mobile-menu-btn span {
+        width: 24px;
+        height: 2px;
+        background-color: var(--primary-color);
+        transition: 0.3s;
     }
 
     .header-btn {
         font-size: 12px;
         padding: 8px 10px;
+    }
+
+    .navbar {
+        display: none;
     }
 
     .nav-container {
@@ -668,19 +723,65 @@ body {
     .carousel-container {
         padding: 0 8px;
         gap: 8px;
-        height: 200px;
+        height: auto;
+        flex-direction: column;
     }
 
     .carousel-btn {
         width: 36px;
         height: 36px;
         font-size: 16px;
+        display: none;
+    }
+
+    .carousel-wrapper {
+        width: 100%;
     }
 
     .slide-content {
         flex-direction: column;
-        gap: 10px;
-        padding: 20px;
+        gap: 8px;
+        padding: 12px;
+        max-width: 100%;
+    }
+
+    .slide-image {
+        width: 100% !important;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 4;
+        max-height: 500px;
+    }
+
+    .slide-description {
+        width: 100%;
+    }
+
+    .slide-description h3 {
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    .slide-description h2 {
+        font-size: 14px;
+        margin-bottom: 6px;
+        line-height: 1.3;
+    }
+
+    .desc-text {
+        font-size: 12px;
+        margin: 8px 0;
+        line-height: 1.4;
+    }
+
+    .desc-price {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .product-btn {
+        padding: 8px 16px;
+        font-size: 12px;
     }
 
     .slide-overlay {
@@ -755,13 +856,83 @@ body {
     }
 
     .header-top {
-        padding: 8px 10px;
-        gap: 8px;
+        padding: 10px 15px;
+        gap: 10px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header-left {
+        flex: 0 0 auto;
+        width: auto;
+    }
+
+    .search-box {
+        width: auto;
+        border: none;
+        background: none;
+        padding: 0;
+    }
+
+    .search-input {
+        display: none;
+    }
+
+    .icon-search {
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .header-center {
+        flex: 1;
+        text-align: center;
+        order: 1;
+    }
+
+    .logo {
+        font-size: 16px;
+        letter-spacing: 2px;
+    }
+
+    .header-right {
+        flex: 0 0 auto;
+        gap: 0;
+        justify-content: flex-end;
+    }
+
+    #auth-guest,
+    #auth-user {
+        display: flex !important;
+        gap: 0;
     }
 
     .header-btn {
-        font-size: 10px;
-        padding: 6px 8px;
+        font-size: 0;
+        padding: 6px 6px;
+        color: var(--primary-color);
+    }
+
+    .header-btn i {
+        font-size: 18px;
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        margin-left: 15px;
+    }
+
+    .mobile-menu-btn span {
+        width: 22px;
+        height: 2px;
+        background: var(--primary-color);
+        border-radius: 2px;
+        transition: all 0.3s ease;
     }
 
     .logo {
